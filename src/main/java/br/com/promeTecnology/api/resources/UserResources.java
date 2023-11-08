@@ -9,11 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.stream.Collectors;
 
 @RestController
@@ -37,6 +36,16 @@ public class UserResources {
         Page<UserDTO> pageUserDTO = pageUser.map(x -> mapper.map( x,  UserDTO.class ) );
 
         return ResponseEntity.ok().body(pageUserDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<UserDTO> create(@RequestBody UserDTO userDTO ) {
+        var user = services.create( userDTO );
+        userDTO = mapper.map( user, UserDTO.class );
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand( userDTO.getId() ).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
 
  }
