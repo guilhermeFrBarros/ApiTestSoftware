@@ -1,4 +1,4 @@
-package br.com.promeTecnology.api.services.exceptions;
+package br.com.promeTecnology.api.repositories.exceptions;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
