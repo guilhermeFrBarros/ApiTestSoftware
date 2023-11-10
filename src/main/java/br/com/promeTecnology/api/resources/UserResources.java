@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -48,4 +49,21 @@ public class UserResources {
         return ResponseEntity.created(uri).build();
     }
 
+    @Transactional
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> uptade( @PathVariable Long id, @RequestBody UserDTO userDTO ){
+        userDTO.setId( id );
+        var user = services.update( userDTO );
+        userDTO = mapper.map( user, UserDTO.class );
+
+        return  ResponseEntity.ok().body(userDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable Long id) {
+        findById( id );
+        services.delete( id );
+
+        return ResponseEntity.noContent().build();
+    }
  }

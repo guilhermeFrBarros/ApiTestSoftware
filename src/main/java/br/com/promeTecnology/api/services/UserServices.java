@@ -9,9 +9,11 @@ import org.springframework.http.ResponseEntity;
 
 public interface UserServices {
     public User findById( Long id );
-
     Page<User> findAll (Pageable paginacao);
-
     User create(UserDTO userDTO);
+
+    User update(UserDTO userDTO);
+
+    void delete( Long id );
 
 }

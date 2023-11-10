@@ -1,5 +1,6 @@
 package br.com.promeTecnology.api.domain;
 
+import br.com.promeTecnology.api.domain.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,4 +23,10 @@ public class User {
     private String email;
     private String password;
 
+
+    public void atulaizarInformacoes(UserDTO dados) {
+        if (dados.getName() != null) { this.name = dados.getName(); }
+        if (dados.getEmail() != null) this.email = dados.getEmail();
+        if (dados.getPassword() != null) { this.password = dados.getPassword(); }
+    }
 }

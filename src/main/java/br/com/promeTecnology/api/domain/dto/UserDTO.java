@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    private Integer id;
+    private Long id;
     private  String name;
     private String email;
     @JsonProperty( access = JsonProperty.Access.WRITE_ONLY )  // server para permitri apenas deste atributo, bloqueando a leitura
